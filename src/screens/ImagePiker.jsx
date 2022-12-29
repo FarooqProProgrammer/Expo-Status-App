@@ -2,8 +2,10 @@ import {View,TouchableOpacity,Text,StyleSheet, Button, Image} from "react-native
 import { useState,useEffect } from "react"
 import * as  ImagePicker from "expo-image-picker"
 import { setImage } from "../store/action";
-
+import {useDispatch} from "react-redux"
 export default function ImagePick({navigation}){
+
+  const dispatch = useDispatch();
     const [hasGalleryPermission,sethasGalleryPermission] = useState(null);
     const [Gallery,setGallery] = useState([]);
 
@@ -37,7 +39,7 @@ export default function ImagePick({navigation}){
     }
 
       useEffect(()=>{
-        setImage(Gallery)
+        dispatch(setImage(Gallery))
      },[Gallery])
 
 

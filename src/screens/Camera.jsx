@@ -2,29 +2,17 @@ import { useState, useEffect } from 'react'
 import { StatusBar } from 'expo-status-bar';
 import { ActivityIndicator, TextInput, TouchableOpacity, Switch, FlatList, Image, Button, StyleSheet, Text, View } from 'react-native';
 import { Camera, CameraType } from 'expo-camera';
-
+import { setImage } from '../store/action';
+import { useDispatch } from 'react-redux';
 
 let camera
-export default function CameraView() {
+export default function CameraView({navigation}) {
   const [type, setType] = useState(CameraType.back);
   const [permission, requestPermission] = Camera.useCameraPermissions();
-  const [currentImage, setCurrentImage] = useState()
+  const [currentImage, setCurrentImage] = useState([])
+  const [imageTrue,setimageTrue] = useState(false)
+  const dispatch = useDispatch();
 
-//   useEffect(() => {
-//     (async () => {
-//       const { status } = await Contacts.requestPermissionsAsync();
-//       if (status === 'granted') {
-//         const { data } = await Contacts.getContactsAsync({
-//           fields: [Contacts.Fields.FirstName, Contacts.Fields.PhoneNumbers],
-//         });
-
-//         if (data.length > 0) {
-//           const contact = data;
-//           console.log(contact);
-//         }
-//       }
-//     })();
-//   }, []);
 
 
   if (!permission) {
@@ -44,12 +32,18 @@ export default function CameraView() {
 
   async function takePicture() {
     if (camera) {
+      setimageTrue(true)
       const options = { quality: 0.5 };
       const data = await camera.takePictureAsync(options);
       console.log(data.uri);
-      setCurrentImage(data.uri)
+      
+      const list = [...currentImage]
+      list.push(data.uri)
+      setCurrentImage(list)
+      dispatch(setImage(currentImage))
     }
   }
+
 
   function toggleCameraType() {
     setType(current => (current === CameraType.back ? CameraType.front : CameraType.back));
@@ -66,10 +60,13 @@ export default function CameraView() {
       <View style={{ backgroundColor: 'green', width: 100, height: 100 }}></View>
       <View style={{ backgroundColor: 'blue', width: 100, height: 100 }}></View> */}
 
-      {currentImage ?
+      {imageTrue ?
         <View style={styles.camera}>
-          <Image style={styles.camera} source={{ uri: currentImage }} />
-          <Button title="Take new picture" onPress={() => setCurrentImage()} />
+          <Image style={styles.camera} source={{ uri: currentImage[0] }} />
+          <Button title="Take new picture" onPress={() => setimageTrue(false)} />
+          <Button title="Go to Status" onPress={() => navigation.navigate("Status")} />
+          
+        
         </View>
         :
         <Camera ref={ref => camera = ref} style={styles.camera} type={type}>
