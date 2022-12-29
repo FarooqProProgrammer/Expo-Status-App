@@ -14,10 +14,10 @@ export default function Status () {
             if(counter === images.length){
                 setCounter(0)
             }else {
-                setWidth(width + 1)
-                if(width === 1000){
+                setWidth(width + 100)
+             
                     setCounter(counter + 1)
-                }
+                
             }
             
         },10000)
