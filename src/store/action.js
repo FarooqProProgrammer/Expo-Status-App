@@ -1,8 +1,15 @@
-import { ADDITION,SUBTRACT } from "./actionType";
+function setImage(theme) {
+    console.log(theme);
+    return {
 
-export const Addition = ()=>{
-    type:ADDITION
+        type: 'SET_IMAGES',
+
+        data: Images
+
+    }
+
 }
-export const Subtraction = ()=>{
-    type:SUBTRACT
+
+export {
+    setImage
 }

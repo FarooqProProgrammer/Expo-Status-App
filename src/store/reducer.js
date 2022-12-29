@@ -1,12 +1,14 @@
-import { ADDITION,SUBTRACT } from "./actionType";
+export default function ImageReducer(state = {}, action) {
 
-export default function mainREducer (state = {},action){
-    switch(action.type) {
-        case ADDITION:
-            return {...state,Images:ImageData}
-        case SUBTRACT:
-            return {...state,Images:ImageData}
-        default:
-            return state
+    //console.log('user inside reducer', action.data)
+
+    switch (action.type) {
+
+        case 'SET_IMAGES': return { ...state, theme: action.data }
+
+
+        default: return state
+
     }
+
 }
