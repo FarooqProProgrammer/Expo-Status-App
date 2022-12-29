@@ -5,7 +5,7 @@ function setImage(theme) {
 
         type: 'SET_IMAGES',
 
-        data: Images
+        data: theme
 
     }
 

@@ -36,9 +36,10 @@ export default function ImagePick({navigation}){
         }
     }
 
-    //   useEffect(()=>{
-    //     setImage(Gallery)
-    //  },[Gallery])
+      useEffect(()=>{
+        setImage(Gallery)
+     },[Gallery])
+
 
     return (
       <View style={{ flex: 1, justifyContent: 'center' }}>
