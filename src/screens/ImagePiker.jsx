@@ -1,6 +1,8 @@
 import {View,TouchableOpacity,Text,StyleSheet, Button, Image} from "react-native"
 import { useState,useEffect } from "react"
 import * as  ImagePicker from "expo-image-picker"
+import { setImage } from "../store/action";
+
 export default function ImagePick({navigation}){
     const [hasGalleryPermission,sethasGalleryPermission] = useState(null);
     const [Gallery,setGallery] = useState([]);
@@ -21,7 +23,7 @@ export default function ImagePick({navigation}){
         })
 
        
-     
+   
         if(!result.canceled){
             const list = [...Gallery]
             for(let i = 0;i< result.assets.length;i++) {
@@ -29,9 +31,15 @@ export default function ImagePick({navigation}){
                 list.push(result.assets[i].uri)
             }
             setGallery(list)
+           
             
         }
     }
+
+    //   useEffect(()=>{
+    //     setImage(Gallery)
+    //  },[Gallery])
+
     return (
       <View style={{ flex: 1, justifyContent: 'center' }}>
         <Button title="Check Status" onPress={()=> navigation.navigate("Status")} style={{marginTop:30}}/>
